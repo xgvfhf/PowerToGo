@@ -12,45 +12,47 @@ import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 
-
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        initViews()
+    }
 
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
             isGranted: Boolean ->
         if(isGranted){
             showCamera()
         }
-
-
     }
 
-
-    private val scanLauncher = registerForActivityResult(ScanContract()){
-
+    private val scanLauncher = registerForActivityResult(ScanContract()) {
             result: ScanIntentResult ->
-            run{
-                if(result.contents == null){
+            run {
+                if(result.contents == null) {
                     Toast.makeText(this,"Cancelled", Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    setResult(result.contents)
+                    //setResult(result.contents)
                 }
             }
-
-
     }
 
-
-
+    /*
     private fun setResult(string: String){
         binding.textView.text = string
     }
 
+     */
 
-
-    private lateinit var binding: ActivityMainBinding
     private fun showCamera(){
         val options = ScanOptions()
+
         options.setDesiredBarcodeFormats(ScanOptions.QR_CODE)
         options.setPrompt("Scan QR code")
         options.setCameraId(0)
@@ -61,43 +63,17 @@ class MainActivity : AppCompatActivity() {
         scanLauncher.launch(options)
     }
 
-
-
-
-
-    override fun onCreate(savedInstanceState: Bundle?){
-        super.onCreate(savedInstanceState)
-        initBinding()
-        initViews()
-    }
-
-
-    private fun initViews(){
-        binding.floatingActionButton.setOnClickListener{
-            checkPermissionCamera(this)
-        }
-
-    }
-
-    private fun checkPermissionCamera(context: Context){
-        if(ContextCompat.checkSelfPermission(context,android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
-            showCamera()
-        else if (shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA)){
-
-            Toast.makeText(context, "CAMERA permission required",Toast.LENGTH_SHORT).show()
-        }
-        else{
-            requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+    private fun initViews() {
+        binding.scanQrCode.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                showCamera()
+            }
+            else if (shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA)){
+                Toast.makeText(this, "CAMERA permission required",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+            }
         }
     }
-
-
-
-    private fun initBinding(){
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-    }
-
-
-
 }

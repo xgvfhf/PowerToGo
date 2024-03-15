@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">test</string>
+    <string name="app_name">PowerToGo</string>
+    <string name="press_to_scan_our_terminal_qr_code">Press to scan our terminal qr code</string>
+    <string name="scan">Scan</string>
 </resources>
