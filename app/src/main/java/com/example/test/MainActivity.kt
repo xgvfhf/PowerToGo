@@ -1,7 +1,9 @@
 package com.example.test
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -38,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this,"Cancelled", Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    //setResult(result.contents)
+                    openLink(result.contents)
                 }
             }
     }
@@ -49,7 +51,11 @@ class MainActivity : AppCompatActivity() {
     }
 
      */
-
+    private fun openLink(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
+    }
     private fun showCamera(){
         val options = ScanOptions()
 
