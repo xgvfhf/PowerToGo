@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">PowerToGo</string>
-    <string name="press_to_scan_our_terminal_qr_code">Press to scan our terminal qr code</string>
-    <string name="scan">Scan</string>
+    <string name="app_name" translatable="false">PowerToGo</string>
+    <string name="press_to_scan_our_terminal_qr_code" translatable="false">Press to scan our terminal qr code</string>
+    <string name="scan" translatable="false">Scan</string>
+    <string name="button_login" translatable="false">login</string>
+    <string name="login_success_message">Successfully logged in! %1$s</string>
+    <string name="login_failure_message">You need to log in to use the app.</string>
 </resources>
