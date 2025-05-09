@@ -66,7 +66,9 @@ import com.journeyapps.barcodescanner.ScanOptions
                     Toast.makeText(this,"Cancelled", Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    openLink(result.contents)
+                    val intent = Intent(this@MainActivity, PaymentActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             }
     }
