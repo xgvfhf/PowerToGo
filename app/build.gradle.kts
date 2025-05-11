@@ -59,6 +59,15 @@ dependencies {
 
     implementation("com.android.volley:volley:1.2.1")
 
+    // Navigation Component (для BurgerMenu и Navigation)
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.3")
+
+// DrawerLayout
+    implementation("androidx.drawerlayout:drawerlayout:1.1.1")
+
+// RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")

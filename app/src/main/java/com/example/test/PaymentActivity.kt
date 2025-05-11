@@ -58,7 +58,8 @@ class PaymentActivity : AppCompatActivity() {
 
         // Параметры для создания сессии
         val params = JSONObject()
-        params.put("stationId", stationId)  // Можно изменить на динамическое значение
+        params.put("userId", userId)
+        params.put("stationId", stationId)
         params.put("amount", 1500)  // Сумма в центах ($15.00)
 
         Log.d("PaymentActivity", "Sending request to $url with params: $params")
