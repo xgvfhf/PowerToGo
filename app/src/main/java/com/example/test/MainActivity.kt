@@ -62,6 +62,12 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra("userId", userId)
                     startActivity(intent)
                 }
+
+                R.id.nav_my_powerbanks -> {
+                    val intent = Intent(this, MyPowerBanksActivity::class.java)
+                    intent.putExtra("userId", userId)
+                    startActivity(intent)
+                }
             }
             binding.drawerLayout.closeDrawers()
             true
