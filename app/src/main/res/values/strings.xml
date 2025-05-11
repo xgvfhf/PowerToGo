@@ -5,4 +5,7 @@
     <string name="button_login" translatable="false">login</string>
     <string name="login_success_message">Successfully logged in! %1$s</string>
     <string name="login_failure_message">You need to log in to use the app.</string>
+
+    <string name="drawer_open">Open Navigation Drawer</string>
+    <string name="drawer_close">Close Navigation Drawer</string>
 </resources>

@@ -11,14 +11,17 @@ import com.example.test.databinding.ActivityMainBinding
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import org.json.JSONObject
-
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.fragment.app.Fragment
+import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val backendUrl = "http://192.168.169.7:4242"  // Заменить на твой IP
 
     private var userId: String? = null
-
+    private var userName: String? = null
+    private var userEmail: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -26,10 +29,44 @@ class MainActivity : AppCompatActivity() {
 
         // Получаем `userId` из `LoginActivity`
         userId = intent.getStringExtra("userId")
+        userName = intent.getStringExtra("name")
+        userEmail = intent.getStringExtra("email")
 
+        setupDrawer()
         initViews()
     }
 
+    private fun setupDrawer() {
+        val toggle = ActionBarDrawerToggle(
+            this,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.drawer_open,
+            R.string.drawer_close
+        )
+
+        binding.drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        binding.navView.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_profile -> {
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    intent.putExtra("name", userName)
+                    intent.putExtra("email", userEmail)
+                    startActivity(intent)
+                }
+
+                R.id.nav_history -> {
+                    val intent = Intent(this, PaymentHistoryActivity::class.java)
+                    intent.putExtra("userId", userId)
+                    startActivity(intent)
+                }
+            }
+            binding.drawerLayout.closeDrawers()
+            true
+        }
+    }
     private fun initViews() {
         binding.scanQrCode.setOnClickListener {
             showCamera()
