@@ -14,7 +14,7 @@ import org.json.JSONObject
 
 class PaymentActivity : AppCompatActivity() {
 
-    private val backendUrl = "http://192.168.169.7:4242" // Заменить на твой IP (для тестирования с телефоном)
+    private val backendUrl = "http://192.168.123.7:4242" // Заменить на твой IP (для тестирования с телефоном)
 
     private var stationId: Int = -1  // Инициализация stationId
     private var userId: String? = null

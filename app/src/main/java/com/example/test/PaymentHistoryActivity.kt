@@ -14,7 +14,7 @@ import org.json.JSONObject
 class PaymentHistoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPaymentHistoryBinding
-    private val backendUrl = "http://192.168.169.7:4242"  // Заменить на твой IP
+    private val backendUrl = "http://192.168.123.7:4242"  // Заменить на твой IP
 
     private var userId: String? = null
     private val paymentList = mutableListOf<Payment>()
