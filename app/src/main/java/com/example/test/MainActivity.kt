@@ -17,7 +17,7 @@ import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val backendUrl = "http://192.168.169.7:4242"  // Заменить на твой IP
+    private val backendUrl = "http://192.168.123.7:4242"  // Заменить на твой IP
 
     private var userId: String? = null
     private var userName: String? = null

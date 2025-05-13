@@ -16,7 +16,7 @@ import org.json.JSONObject
 
 class MyPowerBanksActivity : AppCompatActivity() {
 
-    private val backendUrl = "http://192.168.169.7:4242"  // Заменить на твой IP
+    private val backendUrl = "http://192.168.123.7:4242"  // Заменить на твой IP
     private var userId: String? = null
 
     private lateinit var recyclerView: RecyclerView
