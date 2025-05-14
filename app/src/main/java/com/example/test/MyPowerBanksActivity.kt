@@ -1,3 +1,4 @@
+
 package com.example.test
 
 import android.os.Bundle
@@ -59,9 +60,11 @@ class MyPowerBanksActivity : AppCompatActivity() {
                 } else {
                     for (i in 0 until response.length()) {
                         val item = response.getJSONObject(i)
-                        val stationId = item.getInt("stationId")
-                        val id = item.getString("_id")
-                        powerBankList.add(PowerBank(id, stationId))
+                        val id = item.getString("id")
+                        val location = item.optString("location", "Unknown")
+                        val rentedAt = item.optString("rentedAt", "N/A")
+                        powerBankList.add(PowerBank(id, location, rentedAt))
+
                     }
                 }
                 adapter.notifyDataSetChanged()

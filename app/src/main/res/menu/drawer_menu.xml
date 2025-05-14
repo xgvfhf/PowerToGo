@@ -9,4 +9,9 @@
     <item
         android:id="@+id/nav_my_powerbanks"
         android:title="My Powerbanks" />
+
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Logout" />
+
 </menu>

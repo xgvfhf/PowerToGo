@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
             getString(R.string.com_auth0_domain)
         )
 
-        forceLogout()
+        //forceLogout()
 
         binding.buttonLogin.setOnClickListener {
             login()
@@ -57,13 +57,22 @@ class LoginActivity : AppCompatActivity() {
                         if (isBanned) {
                             showSnackBar("Access denied: your account has been banned.")
                         } else {
-                            syncUser("$url/register-user")
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                            intent.putExtra("userId", user?.id)
-                            intent.putExtra("name", user?.name)
-                            intent.putExtra("email", user?.email)
-                            startActivity(intent)
-                            finish()
+
+                            checkUserRole(user?.id ?: "") { role ->
+                                if (role == "admin") {
+                                    val intent = Intent(this@LoginActivity, AdminActivity::class.java)
+                                    startActivity(intent)
+                                } else {
+                                    syncUser("$url/register-user")
+                                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                    intent.putExtra("userId", user?.id)
+                                    intent.putExtra("name", user?.name)
+                                    intent.putExtra("email", user?.email)
+                                    startActivity(intent)
+                                }
+                                finish()
+                            }
+
                         }
                     }
                 }
@@ -104,6 +113,24 @@ class LoginActivity : AppCompatActivity() {
             { error ->
                 Log.e("checkBanStatus", "Network error: ${error.message}")
                 callback(false) // если не получилось — считаем, что не забанен, чтобы не блокировать доступ по ошибке
+            }
+        )
+
+        queue.add(request)
+    }
+
+    private fun checkUserRole(userId: String, callback: (role: String) -> Unit) {
+        val url = "$url/get-user?userId=$userId"
+        val queue = Volley.newRequestQueue(this)
+
+        val request = JsonObjectRequest(Request.Method.GET, url, null,
+            { response ->
+                val role = response.optString("role", "user") // По умолчанию — user
+                callback(role)
+            },
+            { error ->
+                Log.e("checkUserRole", "Error fetching user role: ${error.message}")
+                callback("user") // По умолчанию — user, если ошибка
             }
         )
 
