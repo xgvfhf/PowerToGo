@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-data class PowerBank(val id: String, val stationId: Int)
+
 
 class PowerBankAdapter(private val powerBankList: List<PowerBank>) :
     RecyclerView.Adapter<PowerBankAdapter.PowerBankViewHolder>() {
@@ -22,7 +22,7 @@ class PowerBankAdapter(private val powerBankList: List<PowerBank>) :
 
     override fun onBindViewHolder(holder: PowerBankViewHolder, position: Int) {
         val powerBank = powerBankList[position]
-        holder.stationIdTextView.text = "Station ID: ${powerBank.stationId}"
+        holder.stationIdTextView.text = "Location: ${powerBank.location}\nRented At: ${powerBank.rentedAt}"
     }
 
     override fun getItemCount(): Int = powerBankList.size

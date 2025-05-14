@@ -13,6 +13,9 @@ import com.journeyapps.barcodescanner.ScanOptions
 import org.json.JSONObject
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
+import com.auth0.android.Auth0
+import com.auth0.android.authentication.AuthenticationException
+import com.auth0.android.provider.WebAuthProvider
 import com.google.android.material.navigation.NavigationView
 class MainActivity : AppCompatActivity() {
 
@@ -68,6 +71,10 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra("userId", userId)
                     startActivity(intent)
                 }
+
+                R.id.nav_logout -> {
+                    logout()
+                }
             }
             binding.drawerLayout.closeDrawers()
             true
@@ -116,6 +123,29 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    private fun logout() {
+        val account = Auth0(
+            getString(R.string.com_auth0_client_id),
+            getString(R.string.com_auth0_domain)
+        )
+
+        WebAuthProvider.logout(account)
+            .withScheme("app")
+            .start(this, object : com.auth0.android.callback.Callback<Void?, AuthenticationException> {
+                override fun onSuccess(payload: Void?) {
+                    val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
+                    Toast.makeText(this@MainActivity, "Logged out successfully", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onFailure(exception: AuthenticationException) {
+                    Toast.makeText(this@MainActivity, "Logout failed: ${exception.message}", Toast.LENGTH_LONG).show()
+                }
+            })
+    }
+
 
     /**
      * Проверка наличия свободных PowerBank'ов
